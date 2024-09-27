@@ -1,1 +1,1 @@
-Web app the allows you to search laptops more precisely
+Web app that allows you to search laptops more precisely
