@@ -21,10 +21,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('your_app.urls')),
-    # Add other app includes as needed
-]
+    path('', include('search.urls')),  # This line includes URLs from your search app
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
+# Add these lines to serve static and media files during development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
