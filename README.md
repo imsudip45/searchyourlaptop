@@ -9,6 +9,6 @@ Must Have a GOOGLE CUSTOM SEARCH API key and CSE ID to make this project work.
 ->And you're done now run : python -m venv [your desired virtual environment name]
                           then run your virtual environment 
                                     &  
-                            ->cd laptop_searchpython 
-                            ->manage.py runserver
+                            ->cd laptop_search 
+                            ->python manage.py runserver
 ==========================GIVE A STAR IF YOU LIKE IT==========================================
