@@ -29,8 +29,8 @@ def search_laptops(request):
     return render(request, 'index.html', {'countries': countries})
 
 def google_search(search_term, country):
-    api_key = "AIzaSyCeYMX7fK6_Vri_627eDUoGAZ8nWRzvsTY"
-    cse_id = "d7b6c11d0b7ec4c27"
+    api_key = "[use your google custom search api key here]"
+    cse_id = "[insert your cse id here]"
     
     service = build("customsearch", "v1", developerKey=api_key)
     res = service.cse().list(q=f"{search_term} laptop price in {country}", cx=cse_id, num=10).execute()
