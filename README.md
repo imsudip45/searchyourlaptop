@@ -11,4 +11,8 @@ Must Have a GOOGLE CUSTOM SEARCH API key and CSE ID to make this project work.
                                     &  
                             ->cd laptop_search 
                             ->python manage.py runserver
+
+preview:
+(https://github.com/user-attachments/assets/9eb6f992-ce93-4d1a-a4be-5d087a0b3c6e)
+
 ==========================GIVE A STAR IF YOU LIKE IT==========================================
