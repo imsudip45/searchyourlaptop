@@ -4,69 +4,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laptop Search</title>
+    <title>Find Your Dream Laptop</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+        }
+        body {
+            font-family: "raleway", sans-serif;
+            background: #fff;  /* Set background to white */
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            background-image: url('/static/images/img1.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
         }
-        .overlay {
-            background-color: rgba(255, 255, 255, 0.8);
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .search-container {
-            text-align: center;
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
             margin-top: 50px;
+            text-align: center;
+            font-size: 70px;
         }
-        .search-form {
+        .searchDiv {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
-            flex-wrap: wrap;
+            margin-top: 50px;
+            width: 100%;
         }
-        .search-form input[type="text"], .search-form select {
-            padding: 10px;
+        form {
+            display: flex;
+            gap: 10px;
+            border: 1px solid;
+            box-shadow: 2px 2px 2px gray;
+            padding: 5px;
+            max-width: 800px;  /* Add this line */
+            width: 90%;        /* Add this line */
+        }
+        input:focus {
+            outline: none;
+        }
+        input[type="number"] {
+            padding: 8px;
             font-size: 16px;
-            border: 1px solid #ddd;
-            margin-right: -1px;
+            border-radius: 2px;
         }
-        .search-form input[type="text"] {
-            width: 200px;
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
         }
-        .search-form input[type="number"] {
-            width: 100px;
+        input[type="number"] {
+            -moz-appearance: textfield;
         }
-        .search-form select {
-            border-radius: 0;
-        }
-        .search-form button {
-            padding: 10px 20px;
+        input[type="search"] {
+            flex: 1;           /* Change this line */
+            min-width: 200px;  /* Add this line */
+            max-width: 300px;  /* Add this line */
+            background-color: #f4f4f4;
             font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: 1px solid #4CAF50;
+            padding: 5px;
+            border-radius: 2px;
+        }
+        select {
+            padding: 8px;
+            font-size: 16px;
+            background-color: #f4f4f4;
+            border-radius: 2px;
+        }
+        .btn {
+            padding: 8px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
             cursor: pointer;
+            font-size: 16px;
+            border-radius: 2px;
         }
-        .results-container {
-            width: 80%;
-            margin-top: 30px;
-            background-color: rgba(255, 255, 255, 0.9);
+        .animatedImage {
+            width: 40%;
+            position: fixed;
+            left: 55%;
+        }
+        video {
+            display: none;
+        }
+        .result {
+            max-width: 50%;
+            margin: 20px 10px;
             padding: 20px;
-            border-radius: 10px;
         }
         .result-item {
             display: flex;
@@ -96,45 +121,113 @@
         .result-info p {
             color: #006621;
         }
+        @media screen and (max-width: 768px) {
+            body {
+                background: #f4f4f4;  /* Keep the existing background for mobile */
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            form {
+                flex-direction: column;
+                width: 90%;
+                max-width: 400px;  /* Add this line */
+                gap: 15px;
+                box-shadow: 0px 0px 10px gray;
+            }
+            .animatedImage {
+                display: none;
+            }
+            input[type="search"] {
+                width: 100%;
+                max-width: none;  /* Add this line */
+                border: 1px solid gray;
+            }
+            select {
+                border: 1px solid gray;
+            }
+            input[type="search"],
+            input[type="number"],
+            .btn {
+                padding: 16px 10px;
+                border-radius: 5px;
+            }
+            select {
+                padding: 16px 10px;
+                border-radius: 5px;
+                color: gray;
+                border: 2px solid #ccc;
+                background-color: #f1f1f1;
+                font-size: 16px;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                border-radius: 5px;
+            }
+            video {
+                display: inline-block;
+                position: fixed;
+                top: 10%;
+                left: 65%;
+                width: 120px;
+                margin: 5px;
+            }
+            .result {
+                margin: 50px 30px;
+                max-width: 100%;
+                padding: 15px;
+            }
+        }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
-    <div class="overlay">
-        <div class="search-container">
-            <h1>Laptop Search</h1>
-            <form class="search-form" action="{% url 'search_laptops' %}" method="post">
-                {% csrf_token %}
-                <input type="text" name="laptop_model" placeholder="Enter laptop model" required>
-                <select name="country" required>
-                    <option value="">Select Country</option>
-                    {% for country in countries %}
-                        <option value="{{ country }}" {% if country == selected_country %}selected{% endif %}>{{ country }}</option>
-                    {% endfor %}
-                </select>
-                <input type="number" name="price_from" placeholder="Price from" value="{{ price_from }}">
-                <input type="number" name="price_upto" placeholder="Price upto" value="{{ price_upto }}">
-                <button type="submit">Search</button>
-            </form>
-        </div>
-
-        {% if results %}
-            <div class="results-container">
-                <h2>Search Results for "{{ query }}" in {{ selected_country }}</h2>
-                {% for result in results %}
-                    <a href="{{ result.link }}" class="result-item" target="_blank">
-                        <img class="result-image" src="{{ result.image_url }}" alt="{{ result.title }}">
-                        <div class="result-info">
-                            <h3>{{ result.title }}</h3>
-                            <p>Price: {{ result.price }}</p>
-                            <p>{{ result.link }}</p>
-                        </div>
-                    </a>
+    <h1>Find laptops within your budget</h1>
+    <div class="searchDiv">
+        <form action="{% url 'search_laptops' %}" method="post">
+            {% csrf_token %}
+            <input type="search" name="laptop_model" id="search" placeholder="Enter a laptop model" required>
+            <select name="country" required>
+                <option value="" selected disabled>Select Country</option>
+                {% for country in countries %}
+                    <option value="{{ country }}" {% if country == selected_country %}selected{% endif %}>{{ country }}</option>
                 {% endfor %}
-            </div>
+            </select>
+            <input type="number" name="price_from" placeholder="Price from" value="{{ price_from }}">
+            <input type="number" name="price_upto" placeholder="Price to" value="{{ price_upto }}">
+            <button class="btn" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+    </div>
+
+    <!-- This div contains SVG image for large screen -->
+    <div class="animatedImage">
+        <!-- Your SVG content here -->
+    </div>
+
+    <!-- This animation is only displayed to small devices -->
+    <video src="{% static 'animation/Animation - 1727839608979.webm' %}" autoplay loop playsinline></video>
+
+    <!-- display laptop here -->
+    <div class="result">
+        {% if results %}
+            <h2>Search Results for "{{ query }}" in {{ selected_country }}</h2>
+            {% for result in results %}
+                <a href="{{ result.link }}" class="result-item" target="_blank">
+                    <img class="result-image" src="{{ result.image_url }}" alt="{{ result.title }}">
+                    <div class="result-info">
+                        <h3>{{ result.title }}</h3>
+                        <p>Price: {{ result.price }}</p>
+                        <p>{{ result.link }}</p>
+                    </div>
+                </a>
+            {% endfor %}
         {% elif query %}
-            <div class="results-container">
-                <h2>No results found for "{{ query }}" in {{ selected_country }} within the specified price range.</h2>
-            </div>
+            <h2>No results found for "{{ query }}" in {{ selected_country }} within the specified price range.</h2>
         {% endif %}
     </div>
 </body>
