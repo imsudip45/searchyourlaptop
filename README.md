@@ -6,7 +6,9 @@ Must Have a GOOGLE CUSTOM SEARCH API key and CSE ID to make this project work.
 ======================INSTRUCTIONS=========================
 ->clone this project 
 ->add your API KEY and CSE ID
-->And you're done now run : venv/Scripts/Activate
-                            cd laptop_search
-                            python manage.py runserver
+->And you're done now run : python -m venv [your desired virtual environment name]
+                          then run your virtual environment 
+                                    &  
+                            ->cd laptop_searchpython 
+                            ->manage.py runserver
 ==========================GIVE A STAR IF YOU LIKE IT==========================================
