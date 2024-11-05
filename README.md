@@ -6,11 +6,15 @@ Currently few countries are added but you can customize and add your own list.
 Must Have a GOOGLE CUSTOM SEARCH API key and CSE ID to make this project work.
 ======================INSTRUCTIONS=========================
 ->clone this project 
+
 ->add your API KEY and CSE ID
+
 ->And you're done now run : python -m venv [your desired virtual environment name]
-                          then run your virtual environment 
+                            then run your virtual environment 
                                     &  
-                            ->cd laptop_search 
+                            
+                            ->cd laptop_search
+                            
                             ->python manage.py runserver
 
 preview:
